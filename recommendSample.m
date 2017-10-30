@@ -16,7 +16,7 @@ for i = 1:length(xgrid)
 %     k = diag(SqExpKernel(repmat(xgrid(i), size(gp.X)), gp.X));
     k = covSEiso(koptions, gp.X, xgrid(i));
     mu(i)  = k'* gp.invK * gp.y;
-    sig(i) = SqExpKernel(xgrid(i),xgrid(i)) - k'* gp.invK * k;
+    sig(i) = covSEiso(koptions, xgrid(i)) - k'* gp.invK * k;
     
     % Acq function
     switch acq_type
