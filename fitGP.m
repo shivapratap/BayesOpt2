@@ -1,4 +1,4 @@
-function gp = fitGP(X, y, bounds, koptions)
+function gp = fitGP(X, y, xbounds, ybounds, koptions)
 
 % Get the Covariance matrix using Sq Exp Kernel
 
@@ -12,7 +12,9 @@ gp.invK = invK;
 gp.X = X;
 gp.y = y;
 
-gp.bounds = bounds;
+gp.xbounds = xbounds;
+gp.ybounds = ybounds;
+
 gp.besty = max(y);
 
 end

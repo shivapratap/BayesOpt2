@@ -1,8 +1,10 @@
 function [xnew]  = recommendSample(gp, acq_type, koptions)
 
 % Initialize variables
-bounds = gp.bounds;
-xgrid = bounds(1):0.1:bounds(2);
+% bounds = gp.bounds;
+bounds = [0;1];
+
+xgrid = bounds(1):0.01:bounds(2);
 
 mu  = zeros(length(xgrid),1);
 sig = zeros(length(xgrid),1);

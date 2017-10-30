@@ -1,3 +1,4 @@
+
 clear;clc;close all;
 rng(18);
 
@@ -27,17 +28,17 @@ scatter(Xinit, yinit);
 
 %% Initialize the GP
 
-%koptions = [0.1 1];
-%Xinit_norm = normaliseData(Xinit, xbounds);
-%yinit_norm = normaliseData(yinit, ybounds);
+Xinit_norm = normaliseData(Xinit, xbounds);
+yinit_norm = normaliseData(yinit, ybounds);
 
-koptions = [1 1];
-gp = fitGP(Xinit, yinit, xbounds, koptions);
+koptions = [.1 1];
+gp = fitGP(Xinit_norm, yinit_norm, xbounds, ybounds, koptions);
 
 %% BO
 
-xnew = recommendSample(gp, 2, koptions);
+xnew_norm = recommendSample(gp, 2, koptions);
+xnew = rescaleData(xnew_norm, gp.xbounds);
 ynew = myfunction(xnew);
-gp = updateGP(gp, xnew, ynew, koptions);
-
+ynew_norm = normaliseData(ynew, gp.ybounds);
+gp = updateGP(gp, xnew_norm, ynew_norm, koptions);
 
