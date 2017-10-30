@@ -1,4 +1,4 @@
-function [xnew]  = recommendSample(gp, acq_type)
+function [xnew]  = recommendSample(gp, acq_type, koptions)
 
 % Initialize variables
 bounds = gp.bounds;
@@ -11,7 +11,8 @@ acq = zeros(length(xgrid),1);
 % For each point in the grid, get mu, sig and acq
 for i = 1:length(xgrid)
     
-    k = diag(SqExpKernel(repmat(xgrid(i), size(gp.X)), gp.X));
+%     k = diag(SqExpKernel(repmat(xgrid(i), size(gp.X)), gp.X));
+    k = covSEiso(koptions, gp.X, xgrid(i));
     mu(i)  = k'* gp.invK * gp.y;
     sig(i) = SqExpKernel(xgrid(i),xgrid(i)) - k'* gp.invK * k;
     

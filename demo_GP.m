@@ -31,12 +31,13 @@ scatter(Xinit, yinit);
 %Xinit_norm = normaliseData(Xinit, xbounds);
 %yinit_norm = normaliseData(yinit, ybounds);
 
-gp = fitGP(Xinit, yinit, xbounds);
+koptions = [1 1];
+gp = fitGP(Xinit, yinit, xbounds, koptions);
 
 %% BO
 
-xnew = recommendSample(gp, 2);
+xnew = recommendSample(gp, 2, koptions);
 ynew = myfunction(xnew);
-gp = updateGP(gp, xnew, ynew);
+gp = updateGP(gp, xnew, ynew, koptions);
 
 
